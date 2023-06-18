@@ -2,6 +2,11 @@ pipeline {
     agent any
 
     stages {
+        stage('Build image') {
+          steps {
+            sh  'docker build -t flask-frontend:${params.flask_version} .'
+          }
+        }
         stage('Flask deploy') {
           steps {
             sh  'kubectl apply -f flask-deployment.yaml'
